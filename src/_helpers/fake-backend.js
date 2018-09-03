@@ -15,7 +15,7 @@ export function configureFakeBackend() {
 
                     // find if any user matches login credentials
                     let filteredUsers = users.filter(user => {
-                        return user.username === params.username && user.password === params.password;
+                        return user.email === params.email && user.password === params.password;
                     });
 
                     if (filteredUsers.length) {
@@ -23,7 +23,7 @@ export function configureFakeBackend() {
                         let user = filteredUsers[0];
                         let responseJson = {
                             id: user.id,
-                            username: user.username,
+                            email: user.email,
                             firstName: user.firstName,
                             lastName: user.lastName,
                             token: 'fake-jwt-token'
@@ -40,13 +40,34 @@ export function configureFakeBackend() {
                 // get users
                 if (url.endsWith('/users') && opts.method === 'GET') {
                     // check for fake auth token in header and return users if valid, this security is implemented server side in a real application
-                    if (opts.headers && opts.headers.Authorization === 'Bearer fake-jwt-token') {
-                        resolve({ ok: true, text: () => Promise.resolve(JSON.stringify(users))});
+   /*                  if (opts.headers && opts.headers.Authorization === 'Bearer fake-jwt-token') {
+                      
                     } else {
                         // return 401 not authorised if token is null or invalid
                         reject('Unauthorised');
-                    }
+                    } */
 
+                    if(users && users.length > 1  ){
+                        resolve({ ok: true, text: () => Promise.resolve(JSON.stringify(users))});
+                    }else{
+                        var user1 ={
+                            email: 'testUser1@newwave.io',
+                            firstName: 'User1',
+                            lastName: 'test',
+                            regCode:'123456'
+                        };
+                        var user2 ={
+                            email: 'testUser2@newwave.io',
+                            firstName: 'User2',
+                            lastName: 'test',
+                            regCode:'123456'
+                        };
+                        users.push(user1);
+                        users.push(user2);
+                        localStorage.setItem('users', JSON.stringify(users));
+                        resolve({ ok: true, text: () => Promise.resolve(JSON.stringify(users))});
+                    }
+                   
                     return;
                 }
 
@@ -76,9 +97,9 @@ export function configureFakeBackend() {
                     let newUser = JSON.parse(opts.body);
 
                     // validation
-                    let duplicateUser = users.filter(user => { return user.username === newUser.username; }).length;
+                    let duplicateUser = users.filter(user => { return user.email === newUser.email; }).length;
                     if (duplicateUser) {
-                        reject('Username "' + newUser.username + '" is already taken');
+                        reject('Username "' + newUser.email + '" is already taken');
                         return;
                     }
 
@@ -120,9 +141,16 @@ export function configureFakeBackend() {
                     return;
                 }
 
+                console.log(url);
+                console.log(opts);
                 // pass through any requests not handled above
                 realFetch(url, opts).then(response => resolve(response));
 
+            /*     realFetch(url, opts).then(function(response) {
+                    console.log(response);
+                    return resolve(response);
+                  });
+ */
             }, 500);
         });
     }

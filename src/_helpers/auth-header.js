@@ -3,7 +3,8 @@ export function authHeader() {
     let user = JSON.parse(localStorage.getItem('user'));
 
     if (user && user.token) {
-        return { 'Authorization': 'Bearer ' + user.token };
+        return { 'Content-Type': 'application/json', 'Authorization': 'JWT ' + user.token,
+        'Access-Control-Allow-Origin':'*' };
     } else {
         return {};
     }

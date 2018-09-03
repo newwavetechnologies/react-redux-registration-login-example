@@ -6,26 +6,31 @@ export const userService = {
     logout,
     register,
     getAll,
+    getUser,
     getById,
     update,
     delete: _delete
 };
 
-function login(username, password) {
+function login(email, password) {
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password })
+        body: JSON.stringify({ email, password })
     };
 
-    return fetch(`${config.apiUrl}/users/authenticate`, requestOptions)
+    return fetch(`${config.apiUrl}/user/sign_in`, requestOptions)
         .then(handleResponse)
         .then(user => {
             // login successful if there's a jwt token in the response
+            console.log("I am here");
             if (user.token) {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
+                console.log(user.token);
                 localStorage.setItem('user', JSON.stringify(user));
             }
+
+            getUser();
 
             return user;
         });
@@ -33,7 +38,9 @@ function login(username, password) {
 
 function logout() {
     // remove user from local storage to log user out
-    localStorage.removeItem('user');
+    //localStorage.removeItem('user');
+    
+    localStorage.clear();
 }
 
 function getAll() {
@@ -45,6 +52,33 @@ function getAll() {
     return fetch(`${config.apiUrl}/users`, requestOptions).then(handleResponse);
 }
 
+
+function getUser() {
+    const requestOptions = {
+        method: 'GET',
+        headers: authHeader()
+    };
+    console.log("I am in Userservice getUser before fetch");
+    return fetch(`${config.apiUrl}/user/profile`, requestOptions).then(handleResponse) 
+    .then(loggedInUser => {
+        // login successful if there's a jwt token in the response
+        console.log("I am in UserService getUser after fetch");
+        
+        if (loggedInUser) {
+            // store user details and jwt token in local storage to keep user logged in between page refreshes
+            console.log(loggedInUser.firstName);
+            localStorage.setItem('loggedInUser', JSON.stringify(loggedInUser));
+
+           
+        }
+
+        loggedInUser =  JSON.parse(localStorage.getItem('loggedInUser'));
+
+        return loggedInUser;
+    });
+}
+
+
 function getById(id) {
     const requestOptions = {
         method: 'GET',
@@ -55,13 +89,27 @@ function getById(id) {
 }
 
 function register(user) {
+
     const requestOptions = {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: authHeader(),
         body: JSON.stringify(user)
     };
+    console.log(requestOptions);
+    console.log(JSON.stringify(user));
+    return fetch(`${config.apiUrl}/user`, requestOptions).then(handleResponse).then( registeredUser => {
+        // login successful if there's a jwt token in the response
+        console.log("I am here");
+        if (registeredUser.regCode) {
+            // store user details and jwt token in local storage to keep user logged in between page refreshes
+            console.log(registeredUser.regCode);
+            localStorage.setItem('registeredUser', JSON.stringify(registeredUser));
+            let regUser = JSON.parse(localStorage.getItem('registeredUser'));
+            console.log(regUser.regCode);
+        }
 
-    return fetch(`${config.apiUrl}/users/register`, requestOptions).then(handleResponse);
+        return user;
+    });
 }
 
 function update(user) {
