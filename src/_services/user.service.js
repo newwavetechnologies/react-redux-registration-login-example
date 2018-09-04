@@ -8,8 +8,7 @@ export const userService = {
     getAll,
     getUser,
     getById,
-    update,
-    delete: _delete
+    update
 };
 
 function login(email, password) {
@@ -22,10 +21,10 @@ function login(email, password) {
     return fetch(`${config.apiUrl}/user/sign_in`, requestOptions)
         .then(handleResponse)
         .then(user => {
-            // login successful if there's a jwt token in the response
+           
             console.log("I am here");
             if (user.token) {
-                // store user details and jwt token in local storage to keep user logged in between page refreshes
+               
                 console.log(user.token);
                 localStorage.setItem('user', JSON.stringify(user));
             }
@@ -37,9 +36,7 @@ function login(email, password) {
 }
 
 function logout() {
-    // remove user from local storage to log user out
     //localStorage.removeItem('user');
-    
     localStorage.clear();
 }
 
@@ -48,7 +45,6 @@ function getAll() {
         method: 'GET',
         headers: authHeader()
     };
-
     return fetch(`${config.apiUrl}/users`, requestOptions).then(handleResponse);
 }
 
@@ -58,22 +54,12 @@ function getUser() {
         method: 'GET',
         headers: authHeader()
     };
-    console.log("I am in Userservice getUser before fetch");
     return fetch(`${config.apiUrl}/user/profile`, requestOptions).then(handleResponse) 
-    .then(loggedInUser => {
-        // login successful if there's a jwt token in the response
-        console.log("I am in UserService getUser after fetch");
-        
+    .then(loggedInUser => { 
         if (loggedInUser) {
-            // store user details and jwt token in local storage to keep user logged in between page refreshes
-            console.log(loggedInUser.firstName);
             localStorage.setItem('loggedInUser', JSON.stringify(loggedInUser));
-
-           
         }
-
         loggedInUser =  JSON.parse(localStorage.getItem('loggedInUser'));
-
         return loggedInUser;
     });
 }
@@ -95,20 +81,35 @@ function register(user) {
         headers: authHeader(),
         body: JSON.stringify(user)
     };
-    console.log(requestOptions);
-    console.log(JSON.stringify(user));
+
     return fetch(`${config.apiUrl}/user`, requestOptions).then(handleResponse).then( registeredUser => {
-        // login successful if there's a jwt token in the response
-        console.log("I am here");
+       
+     
         if (registeredUser.regCode) {
-            // store user details and jwt token in local storage to keep user logged in between page refreshes
-            console.log(registeredUser.regCode);
+           
             localStorage.setItem('registeredUser', JSON.stringify(registeredUser));
-            let regUser = JSON.parse(localStorage.getItem('registeredUser'));
-            console.log(regUser.regCode);
+
+            let users = JSON.parse(localStorage.getItem('users')) || [];
+
+            var tempUser ={
+                email: user.email,
+                firstName: user.firstName,
+                lastName: user.lastName,
+                regCode:registeredUser.regCode,
+                registered : "TEMP"
+            };
+            users.push(tempUser);
+            localStorage.setItem('users', JSON.stringify(users));
+
+            //let regUser = JSON.parse(localStorage.getItem('registeredUser'));
+        }else if(registeredUser.message){
+
+            //localStorage.setItem('message', JSON.stringify(registeredUser.message));
+            const error = registeredUser.message;
+            return Promise.reject(error);
         }
 
-        return user;
+        return registeredUser;
     });
 }
 
@@ -120,16 +121,6 @@ function update(user) {
     };
 
     return fetch(`${config.apiUrl}/users/${user.id}`, requestOptions).then(handleResponse);;
-}
-
-// prefixed function name with underscore because delete is a reserved word in javascript
-function _delete(id) {
-    const requestOptions = {
-        method: 'DELETE',
-        headers: authHeader()
-    };
-
-    return fetch(`${config.apiUrl}/users/${id}`, requestOptions).then(handleResponse);
 }
 
 function handleResponse(response) {

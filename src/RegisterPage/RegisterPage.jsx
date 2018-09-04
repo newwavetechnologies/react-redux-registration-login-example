@@ -7,21 +7,24 @@ import { userActions } from "../_actions";
 import ReactPhoneInput from "react-phone-input-2";
 import ReactTelInput from "react-telephone-input";
 import "react-telephone-input/lib/withStyles";
-import flags from "../flags.png";
+import flags from "../Images/flags.png";
 
 const teleStyles = require("react-telephone-input/lib/withStyles");
 import { PhoneNumberFormat, PhoneNumberUtil } from "google-libphonenumber";
 const phoneUtil = PhoneNumberUtil.getInstance();
 import { formatNumber } from "libphonenumber-js";
 import styles from "../style.css";
-import person from "../Vector.png";
-import viewUser from "../Viewuser.png";
-import logOut from "../logout.png";
-import addUser from "../AddUser.png";
-import home from "../home.png";
-import newwave from "../newwaveLogo.png";
+import person from "../Images/Vector.png";
+import viewUser from "../Images/Viewuser.png";
+import logOut from "../Images/logout.png";
+import addUser from "../Images/AddUser.png";
+import home from "../Images/home.png";
+import newwave from "../Images/newwaveLogo.png";
 const wellStyles = { maxWidth: 400, margin: "0 auto 10px" };
 const loginWellStyles = { maxWidth: 500, margin: "0 auto 10px" };
+
+import header from "../Images/header.png";
+import footer from "../Images/footer.png";
 
 class RegisterPage extends React.Component {
   constructor(props) {
@@ -103,10 +106,14 @@ class RegisterPage extends React.Component {
             </div>
             {/*  <h1 className="text-center text-primary">newwave</h1> */}
           </div>
-          <div className="col-6 col-md-9">
+          <div className="col-6 col-md-8">
             <h2 className="text-center text-primary">myCareAi</h2>
             <h4 className="text-center">Create Account</h4>
           </div>
+          <div className="col-6  col-md-1">
+            <img className={styles.headerHeight} alt="" src={header} />
+           
+            </div>
         </div>
 
         <div className="row">
@@ -150,7 +157,7 @@ class RegisterPage extends React.Component {
               </div>
             </Link>
           </div>
-          <div className="col-6 col-md-9">
+          <div className="col-6 col-md-8">
             <form name="form" onSubmit={this.handleSubmit}>
               <div
                 className={
@@ -221,7 +228,7 @@ class RegisterPage extends React.Component {
                 <label htmlFor="phone_number">Phone Number</label>
 
                 <ReactTelInput
-                  name="phone_number"
+                  name="phone_number" 
                   defaultCountry="us"
                   flagsImagePath={flags}
                   onChange={this.handleInputChange}
@@ -274,6 +281,8 @@ class RegisterPage extends React.Component {
             </h1>
           </div>
         </div>
+        <div> <img className={styles.footerHeight} alt="" src={footer} />
+              </div>
       </div>
     );
   }

@@ -7,16 +7,18 @@ import { userActions } from "../_actions";
 import { Navbar, Nav, NavItem, Button, Glyphicon } from "react-bootstrap";
 
 import { Component } from "react";
-import logo from "../newwave.png";
+import logo from "../Images/newwave.png";
 import styles from "../style.css";
-import person from "../Vector.png";
+import person from "../Images/Vector.png";
 import {Footer} from 'react-materialize';
-import newwave from "../newwaveLogo.png";
+import newwave from "../Images/newwaveLogo.png";
 import { Container, Row, Col } from "reactstrap";
-
+import header from "../Images/header.png";
+import footer from "../Images/footer.png"
 const wellStyles = { maxWidth: 400, margin: "0 auto 10px" };
 const loginWellStyles = { maxWidth: 500, margin: "0 auto 10px" };
-const logoStyles = { maxHeight: 400 };
+const carouselStyles = {  top  : "25%" };
+const imageSizeStyles = {   height: "100%", overflow:"hidden"};
 
 class LoginPage extends React.Component {
   constructor(props) {
@@ -62,32 +64,25 @@ class LoginPage extends React.Component {
     const { email, password, submitted } = this.state;
     return (
       <div className="container-fluid">
-        <div className="row">
-          <div className="col-md-3 ">
-          <div style={logoStyles}  >
-        <img  className="img-responsive"  alt="" src={logo} /> 
-          <div  className="carousel-caption">
+        <div className="row no-gutters">
+          <div className="col-6 col-md-3" >
+        
+          <div  >
+ 
+          <img   style={imageSizeStyles}          className={styles.logoSize}     alt="" src={logo} /> 
+         
+         
+          <div style={carouselStyles}   className="carousel-caption">
                 <h4 className="text-center">Powered By</h4>
               {/*   <h1 className="text-center ">newwave</h1> */}
-                <img style={{height:'50px'}} alt="" src={newwave} />
+                <img   style={{height:'50px'}} alt="" src={newwave} />
               </div> 
 
               </div>
+              
           </div>
-          <div className="col-md-9">
-       
-           {/*  <div className="row">
-             
-              <div className="col-md-offset-11">
-                <img
-                  className="img-responsive  img-circle"
-                  style={{ backgroundColor: "#335DFF", float: "right" }}
-                  alt=""
-                  src={person}
-                />
-              </div>
-            </div> */}
-            <div className="row">
+          <div className=" col-6 col-md-8">
+
               <h2 className="text-center text-primary" >myCareAi</h2>
               <h4 className="text-center">Admin Portal</h4>
               <br></br>
@@ -159,10 +154,16 @@ class LoginPage extends React.Component {
                 </div>
               </form>
             </div>
+            <div className="col-6  col-md-1">
+            <img className={styles.headerHeight} alt="" src={header} />
+           
+            </div>
 
               
-          </div>
+             
         </div>
+        <div> <img className={styles.footerHeight} alt="" src={footer} />
+              </div>
       </div>
     );
   }

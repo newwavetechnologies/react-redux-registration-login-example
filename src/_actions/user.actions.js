@@ -2,15 +2,13 @@ import { userConstants } from "../_constants";
 import { userService } from "../_services";
 import { alertActions } from "./";
 import { history } from "../_helpers";
-import { loggedInUser } from "../_reducers/loggedInUser.reducer";
 
 export const userActions = {
   login,
   logout,
   register,
   getUser,
-  getAll,
-  delete: _delete
+  getAll
 };
 
 function login(email, password) {
@@ -122,26 +120,3 @@ function getAll() {
   }
 }
 
-// prefixed function name with underscore because delete is a reserved word in javascript
-function _delete(id) {
-  return dispatch => {
-    dispatch(request(id));
-
-    userService
-      .delete(id)
-      .then(
-        user => dispatch(success(id)),
-        error => dispatch(failure(id, error.toString()))
-      );
-  };
-
-  function request(id) {
-    return { type: userConstants.DELETE_REQUEST, id };
-  }
-  function success(id) {
-    return { type: userConstants.DELETE_SUCCESS, id };
-  }
-  function failure(id, error) {
-    return { type: userConstants.DELETE_FAILURE, id, error };
-  }
-}

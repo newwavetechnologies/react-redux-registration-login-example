@@ -1,17 +1,18 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import logo from "../newwave.png";
+import logo from "../Images/newwave.png";
 import { userActions } from "../_actions";
-import { userConstants } from "../_constants";
 import styles from "../style.css";
-import viewUser from "../Viewuser.png";
-import logOut from "../logout.png";
-import addUser from "../AddUser.png";
-import home from "../home.png";
-import registrationSuccess from "../registration.png";
-import newwave from "../newwaveLogo.png";
+import viewUser from "../Images/Viewuser.png";
+import logOut from "../Images/logout.png";
+import addUser from "../Images/AddUser.png";
+import home from "../Images/home.png";
+import registrationSuccess from "../Images/registration.png";
+import newwave from "../Images/newwaveLogo.png";
 const centerStyles = { maxWidth: 400, margin: "0 auto 0" };
+import header from "../Images/header.png";
+import footer from "../Images/footer.png";
 class HomePage extends React.Component {
   constructor(props) {
     super(props);
@@ -28,7 +29,6 @@ class HomePage extends React.Component {
 
   getUserData() {
     setTimeout(() => {
-     
       let loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
       if (loggedInUser) {
         this.setState({
@@ -46,9 +46,7 @@ class HomePage extends React.Component {
     // this.props.dispatch(userActions.getUser());
   }
 
-  handleDeleteUser(id) {
-    return e => this.props.dispatch(userActions.delete(id));
-  }
+
   removeRegisteredUser() {
     localStorage.removeItem("registeredUser");
   }
@@ -58,29 +56,22 @@ class HomePage extends React.Component {
     //let  loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
 
     let loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
-    let showRegisterCode, showLoggedInUser;
     let registeredUser = JSON.parse(localStorage.getItem("registeredUser"));
-
-    if (registeredUser) {
-      showRegisterCode = (
-        <h1>Your Registration code is {registeredUser.regCode}</h1>
-      );
-    } else {
-      showRegisterCode = <h1>Welecome</h1>;
-    }
-
     return (
       <div className="container-fluid">
         <div className="row">
           <div className="col-6 col-md-3">
             <h4 className="text-center">Powered By</h4>
-            <div className="text-center"><img className={styles.logoHeight}alt="" src={newwave} /> </div>
-           {/*  <h1 className="text-center text-primary">newwave</h1> */}
-          
+            <div className="text-center">
+              <img className={styles.logoHeight} alt="" src={newwave} />{" "}
+            </div>
           </div>
-          <div className="col-6 col-md-9">
+          <div className="col-6 col-md-8">
             <h2 className="text-center text-primary">myCareAi</h2>
             <h4 className="text-center">Admin Portal</h4>
+          </div>
+          <div className="col-6  col-md-1">
+            <img className={styles.headerHeight} alt="" src={header} />
           </div>
         </div>
 
@@ -125,27 +116,34 @@ class HomePage extends React.Component {
               </div>
             </Link>
           </div>
-          <div className="col-6 col-md-9">
-          {!registeredUser && (<div style={centerStyles}>
-          <h4 className="text-center text-primary">Welcome to MiHIN admin portal</h4>
-<h4 className="text-center text-primary">Please choose one of the option from left menu</h4>
+          <div className="col-6 col-md-8">
+            {!registeredUser && (
+              <div style={centerStyles}>
+                <h4 className="text-center text-primary">
+                  Welcome to MiHIN admin portal
+                </h4>
+                <h4 className="text-center text-primary">
+                  Please choose one of the option from left menu
+                </h4>
+              </div>
+            )}
+            {registeredUser && (
+              <div style={centerStyles}>
+                <img
+                  className={styles.regSuccessImageSize}
+                  alt=""
+                  src={registrationSuccess}
+                />
+                <h4 className="text-center text-primary">
+                  Account Creation was successfull
+                </h4>
+                <h4 className="text-center text-primary">
+                  Your Registration code is {registeredUser.regCode}
+                </h4>
+              </div>
+            )}
           </div>
-            )}
-            {registeredUser && ( <div style={centerStyles}>
-             
-             <img
-               className={styles.regSuccessImageSize}
-               alt=""
-               src={registrationSuccess}
-             />
-<h4 className="text-center text-primary">Account Creation was successfull</h4>
-<h4 className="text-center text-primary">Your Registration code is {registeredUser.regCode}</h4>
-           </div>
-            
-            )}
 
-            
-          </div>
           <div className={styles.sticky}>
             <h1>
               {" "}
@@ -158,6 +156,10 @@ class HomePage extends React.Component {
               </span>
             </h1>
           </div>
+        </div>
+        <div>
+          {" "}
+          <img className={styles.footerHeight} alt="" src={footer} />
         </div>
       </div>
     );
