@@ -21,11 +21,7 @@ function login(email, password) {
     return fetch(`${config.apiUrl}/user/sign_in`, requestOptions)
         .then(handleResponse)
         .then(user => {
-           
-            console.log("I am here");
             if (user.token) {
-               
-                console.log(user.token);
                 localStorage.setItem('user', JSON.stringify(user));
             }
 

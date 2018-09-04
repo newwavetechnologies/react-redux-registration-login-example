@@ -60,17 +60,6 @@ class RegisterPage extends React.Component {
   }
 
   handleInputChange(telNumber, selectedCountry) {
-    /*    this.setState({
-        phone_number: formatNumber(telNumber,'National'),
-        country_code: selectedCountry.dialCode
-      }); */
-    console.log(
-      "input changed. number: ",
-      formatNumber(telNumber, "National"),
-      "selected country: ",
-      selectedCountry.dialCode
-    );
-
     const { user } = this.state;
     this.setState({
       user: {
@@ -104,7 +93,6 @@ class RegisterPage extends React.Component {
             <div className="text-center">
               <img className={styles.logoHeight} alt="" src={newwave} />{" "}
             </div>
-            {/*  <h1 className="text-center text-primary">newwave</h1> */}
           </div>
           <div className="col-6 col-md-8">
             <h2 className="text-center text-primary">myCareAi</h2>
@@ -124,7 +112,7 @@ class RegisterPage extends React.Component {
                 {" "}
                 <img className={styles.imageSize} alt="" src={home} />
                 <br />
-                <lable>Home </lable>{" "}
+                <span>Home </span>{" "}
               </div>
             </Link>
 
@@ -134,7 +122,7 @@ class RegisterPage extends React.Component {
                   {" "}
                   <img className={styles.imageSize} alt="" src={addUser} />
                   <br />
-                  <lable> Add Users </lable>
+                  <span> Add Users </span>
                 </div>{" "}
               </div>
             </Link>
@@ -144,7 +132,7 @@ class RegisterPage extends React.Component {
                 {" "}
                 <img className={styles.imageSize} alt="" src={viewUser} />
                 <br />
-                <lable> View Users </lable>{" "}
+                <span> View Users </span>{" "}
               </div>
             </Link>
             <Link to="/login">
@@ -153,7 +141,7 @@ class RegisterPage extends React.Component {
                 {" "}
                 <img className={styles.imageSize} alt="" src={logOut} />
                 <br />
-                <lable> Log Out</lable>{" "}
+                <span> Log Out</span>{" "}
               </div>
             </Link>
           </div>
@@ -240,7 +228,7 @@ class RegisterPage extends React.Component {
               </div>
               <div
                 className={
-                  "form-group" + (submitted && !user.mrnId ? " has-error" : "")
+                  "form-group" 
                 }
                 style={loginWellStyles}
               >
@@ -273,9 +261,9 @@ class RegisterPage extends React.Component {
               {" "}
               <span className="label label-primary">
                 {loggedInUser && (
-                  <lable>
+                  <span>
                     {loggedInUser.firstName + " " + loggedInUser.lastName}
-                  </lable>
+                  </span>
                 )}
               </span>
             </h1>

@@ -84,7 +84,7 @@ class HomePage extends React.Component {
                   {" "}
                   <img className={styles.imageSize} alt="" src={home} />
                   <br />
-                  <lable>Home </lable>{" "}
+                  <span>Home </span>{" "}
                 </div>
               </div>{" "}
             </Link>
@@ -94,16 +94,16 @@ class HomePage extends React.Component {
                 {" "}
                 <img className={styles.imageSize} alt="" src={addUser} />
                 <br />
-                <lable> Add Users </lable>{" "}
+                <span> Add Users </span>{" "}
               </div>
             </Link>
-            <Link to="/viewUsers">
+            <Link to="/viewUsers" onClick={this.removeRegisteredUser}>
               {" "}
               <div className={styles.iconsHeight}>
                 {" "}
                 <img className={styles.imageSize} alt="" src={viewUser} />
                 <br />
-                <lable> View Users </lable>{" "}
+                <span> View Users </span>{" "}
               </div>
             </Link>
             <Link to="/login">
@@ -112,7 +112,7 @@ class HomePage extends React.Component {
                 {" "}
                 <img className={styles.imageSize} alt="" src={logOut} />
                 <br />
-                <lable> Log Out</lable>{" "}
+                <span> Log Out</span>{" "}
               </div>
             </Link>
           </div>
@@ -149,9 +149,9 @@ class HomePage extends React.Component {
               {" "}
               <span className="label label-primary">
                 {loggedInUser && (
-                  <lable>
+                  <span>
                     {loggedInUser.firstName + " " + loggedInUser.lastName}
-                  </lable>
+                  </span>
                 )}
               </span>
             </h1>
