@@ -1,8 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import logo from "../Images/newwave.png";
-import { userActions } from "../_actions";
 import styles from "../style.css";
 import viewUser from "../Images/Viewuser.png";
 import logOut from "../Images/logout.png";
@@ -13,6 +11,7 @@ import newwave from "../Images/newwaveLogo.png";
 const centerStyles = { maxWidth: 400, margin: "0 auto 0" };
 import header from "../Images/header.png";
 import footer from "../Images/footer.png";
+import mihin from "../Images/MiHIN.png";
 class HomePage extends React.Component {
   constructor(props) {
     super(props);
@@ -46,7 +45,6 @@ class HomePage extends React.Component {
     // this.props.dispatch(userActions.getUser());
   }
 
-
   removeRegisteredUser() {
     localStorage.removeItem("registeredUser");
   }
@@ -61,17 +59,25 @@ class HomePage extends React.Component {
       <div className="container-fluid">
         <div className="row">
           <div className="col-6 col-md-3">
-            <h4 className="text-center">Powered By</h4>
             <div className="text-center">
-              <img className={styles.logoHeight} alt="" src={newwave} />{" "}
+              <h1>
+                {" "}
+                <span className="label label-primary ">
+                  {loggedInUser && (
+                    <span>
+                      {loggedInUser.firstName + " " + loggedInUser.lastName}
+                    </span>
+                  )}
+                </span>
+              </h1>
             </div>
           </div>
           <div className="col-6 col-md-8">
-            <h2 className="text-center text-primary">myCareAi</h2>
+            <h2 className="text-center text-primary">myCareAI</h2>
             <h4 className="text-center">Admin Portal</h4>
           </div>
-          <div className="col-6  col-md-1">
-            <img className={styles.headerHeight} alt="" src={header} />
+          <div className="col-6  col-md-1 ">
+            <img className={styles.headerHeight} alt="" src={mihin} />
           </div>
         </div>
 
@@ -123,7 +129,7 @@ class HomePage extends React.Component {
                   Welcome to MiHIN admin portal
                 </h4>
                 <h4 className="text-center text-primary">
-                  Please choose one of the option from left menu
+                  Select an option from the left
                 </h4>
               </div>
             )}
@@ -138,28 +144,41 @@ class HomePage extends React.Component {
                   Account Creation was successfull
                 </h4>
                 <h4 className="text-center text-primary">
-                  Your Registration code is {registeredUser.regCode}
+                  Your Registration code is
                 </h4>
+                <h2 className="text-center text-primary">
+                  {registeredUser.regCode}
+                </h2>
               </div>
             )}
           </div>
 
-          <div className={styles.sticky}>
-            <h1>
-              {" "}
-              <span className="label label-primary">
-                {loggedInUser && (
-                  <span>
-                    {loggedInUser.firstName + " " + loggedInUser.lastName}
-                  </span>
-                )}
-              </span>
-            </h1>
-          </div>
+       {/*    <div className={styles.sticky}>
+            <div className="row">
+              <div className="col-6 col-md-3">
+                <div className="text-center">
+                  <h1>
+                    {" "}
+                    <span className="label label-primary">
+                      {loggedInUser && (
+                        <span>
+                          {loggedInUser.firstName + " " + loggedInUser.lastName}
+                        </span>
+                      )}
+                    </span>
+                  </h1>
+                </div>
+              </div>
+            </div>
+          </div> */}
         </div>
         <div>
-          {" "}
-          <img className={styles.footerHeight} alt="" src={footer} />
+          <div className={styles.footerWording}>
+            <h4 className="text-center">Powered By</h4>
+          </div>
+          <div>
+            <img className={styles.footerHeight} alt="" src={newwave} />{" "}
+          </div>
         </div>
       </div>
     );

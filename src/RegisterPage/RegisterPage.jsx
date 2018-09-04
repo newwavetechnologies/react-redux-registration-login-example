@@ -10,8 +10,7 @@ import "react-telephone-input/lib/withStyles";
 import flags from "../Images/flags.png";
 
 const teleStyles = require("react-telephone-input/lib/withStyles");
-import { PhoneNumberFormat, PhoneNumberUtil } from "google-libphonenumber";
-const phoneUtil = PhoneNumberUtil.getInstance();
+
 import { formatNumber } from "libphonenumber-js";
 import styles from "../style.css";
 import person from "../Images/Vector.png";
@@ -22,7 +21,7 @@ import home from "../Images/home.png";
 import newwave from "../Images/newwaveLogo.png";
 const wellStyles = { maxWidth: 400, margin: "0 auto 10px" };
 const loginWellStyles = { maxWidth: 500, margin: "0 auto 10px" };
-
+import mihin from "../Images/MiHIN.png";
 import header from "../Images/header.png";
 import footer from "../Images/footer.png";
 
@@ -89,17 +88,25 @@ class RegisterPage extends React.Component {
       <div className="container-fluid">
         <div className="row">
           <div className="col-6 col-md-3">
-            <h4 className="text-center">Powered By</h4>
-            <div className="text-center">
-              <img className={styles.logoHeight} alt="" src={newwave} />{" "}
-            </div>
+          <div className="text-center">
+            <h1>
+              {" "}
+              <span className="label label-primary ">
+                {loggedInUser && (
+                  <span >
+                    {loggedInUser.firstName + " " + loggedInUser.lastName}
+                  </span>
+                )}
+              </span>
+            </h1>
+          </div>
           </div>
           <div className="col-6 col-md-8">
-            <h2 className="text-center text-primary">myCareAi</h2>
+            <h2 className="text-center text-primary">myCareAI</h2>
             <h4 className="text-center">Create Account</h4>
           </div>
           <div className="col-6  col-md-1">
-            <img className={styles.headerHeight} alt="" src={header} />
+            <img className={styles.headerHeight} alt="" src={mihin} />
            
             </div>
         </div>
@@ -240,8 +247,7 @@ class RegisterPage extends React.Component {
                   value={user.mrnId}
                   onChange={this.handleChange}
                 />
-                {/*   {submitted &&
-              !user.mrnId && <div className="help-block">MRN is required</div>} */}
+
               </div>
               <div className="form-group" style={wellStyles}>
                 <button className="btn btn-primary btn-lg btn-block">
@@ -256,7 +262,7 @@ class RegisterPage extends React.Component {
               </div>
             </form>
           </div>
-          <div className={styles.sticky}>
+        {/*   <div className={styles.sticky}>
             <h1>
               {" "}
               <span className="label label-primary">
@@ -267,10 +273,21 @@ class RegisterPage extends React.Component {
                 )}
               </span>
             </h1>
-          </div>
+          </div> */}
         </div>
-        <div> <img className={styles.footerHeight} alt="" src={footer} />
-              </div>
+     {/*    <div> <img className={styles.footerHeight} alt="" src={footer} />
+              </div> */}
+
+                  <div>
+          <div  className={styles.footerWording}>
+          <h4 className="text-center" >Powered By</h4>
+          </div>
+            <div >
+              <img className={styles.footerHeight} alt="" src={newwave} />{" "}
+            </div>
+          
+    
+        </div>
       </div>
     );
   }

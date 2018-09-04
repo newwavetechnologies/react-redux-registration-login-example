@@ -25,11 +25,19 @@ export function configureFakeBackend() {
                             email: 'testUser2@newwave.io',
                             firstName: 'User2',
                             lastName: 'test',
-                            regCode:'',
+                            regCode:'123456',
+                            registered : 'PATIENT'
+                        };
+                        var user3 ={
+                            email: 'testUser3@newwave.io',
+                            firstName: 'User3',
+                            lastName: 'test',
+                            regCode:'123456',
                             registered : 'PATIENT'
                         };
                         users.push(user1);
                         users.push(user2);
+                        users.push(user3);
                         localStorage.setItem('users', JSON.stringify(users));
                         resolve({ ok: true, text: () => Promise.resolve(JSON.stringify(users))});
                     }

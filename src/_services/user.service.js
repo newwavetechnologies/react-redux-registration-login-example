@@ -101,7 +101,12 @@ function register(user) {
         }else if(registeredUser.message){
 
             //localStorage.setItem('message', JSON.stringify(registeredUser.message));
-            const error = registeredUser.message;
+          
+            var error = registeredUser.message;
+            if(error.includes("Account already exist"))
+            {
+                error = "Email Address already in use for another account"
+            }
             return Promise.reject(error);
         }
 
